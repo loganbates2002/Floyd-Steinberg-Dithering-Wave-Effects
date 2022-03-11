@@ -10,7 +10,7 @@ To change the number of color possibilities accepted within error, ie. how many 
 You may need to refresh the page.
 
 Dithering Example:
-![CHEESE](UnditheredImageRomanStatue.png)
+![UnditheredRomanStatue](README_Images/UnditheredImageRomanStatue.png)
 
 Color Factor Example:
 
