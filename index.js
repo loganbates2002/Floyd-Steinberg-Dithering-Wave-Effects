@@ -49,7 +49,7 @@
       const offSet = .25;
       const waveEffect = 4;
     }
-    wave8:{      fill screen without gaps (set colorFactor to 64)
+    wave8:{      fill screen without gaps (set ColorFactor to 64 on line 85)
       const CellSize = 14;
       const CellSpacingX = 9;
       const CellSpacingY = 8;
@@ -68,15 +68,15 @@ const backgroundImage = new Image();
 backgroundImage.src = 'Images/colors.png';
 const imageWidth = backgroundImage.width;
 const imageHeight = backgroundImage.height;
-backgroundImage.style.width = '200px';
+backgroundImage.style.width = '500px';
 backgroundImage.style.height = 'auto';
 
 // Use the settings to change these for different effects, preset to wave1
-const CellSize = 14;
-const CellSpacingX = 9;
-const CellSpacingY = 8;
-const offSet = .5;
-const waveEffect = 4;
+const CellSize = 4;
+const CellSpacingX = 12;
+const CellSpacingY = 14;
+const offSet = .25;
+const waveEffect = 6;
 
 var gameFrame = 0;
 let particleArray = [];
@@ -111,8 +111,8 @@ class Cell{
     this.blue = b;
     this.green = g;
     this.alpha = a;
-    this.x = x -100;
-    this.y = y - 200;
+    this.x = x - 150;
+    this.y = y - 100;
     this.size = CellSize;
     this.baseY = this.y;
     this.baseX = this.x;
@@ -123,6 +123,7 @@ class Cell{
     ctx.fillStyle = `rgba(${this.red}, ${this.green}, ${this.blue}, ${this.alpha})`;
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+    // ctx.rect(this.x, this.y, this.size,this.size); draws squares instead of circles for pixelated effect
     ctx.closePath();
     ctx.fill();
   }
@@ -242,8 +243,8 @@ function animate(){
             aniX+= offSet;
             posotive = true;
         }
-        particleArray[i][j].draw();
-        particleArray[i][j].update(aniX);
+        particleArray[j][i].draw();
+        particleArray[j][i].update(aniX);
       }
     }
     gameFrame++;
