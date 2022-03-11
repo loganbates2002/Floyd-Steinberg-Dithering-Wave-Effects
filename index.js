@@ -1,79 +1,145 @@
+/*
+    :SETTINGS:
+    wave1:{        normal grid
+      const CellSize = 4;
+      const CellSpacingX = 12;
+      const CellSpacingY = 14;
+      const offSet = .25;
+      const waveEffect = 6;
+    }
+    wave2:{         virticle lines
+      const CellSize = 8;
+      const CellSpacingX = 50;
+      const CellSpacingY = 10;
+      const offSet = .25;
+      const waveEffect = 6;
+    }
+    wave3:{         large cells, long oscillation
+      const CellSize = 8;
+      const CellSpacingX = 50;
+      const CellSpacingY = 50;
+      const offSet = .5;
+      const waveEffect = 12;
+    }
+    wave4:{        large cells, slow oscillation
+      const CellSize = 35;
+      const CellSpacingX = 50;
+      const CellSpacingY = 50;
+      const offSet = .5;
+      const waveEffect = 6;
+    }
+    wave5:{      small cells, long oscillation
+      const CellSize = 2;
+      const CellSpacingX = 50;
+      const CellSpacingY = 50;
+      const offSet = 1;
+      const waveEffect = 24;
+    }
+    wave6:{       small cells, virticle lines
+      const CellSize = 4;
+      const CellSpacingX = 14;
+      const CellSpacingY = 10;
+      const offSet = .25;
+      const waveEffect = 6;
+    }
+    wave7:{           offset wave
+      const CellSize = 4;
+      const CellSpacingX = 10;
+      const CellSpacingY = 10;
+      const offSet = .25;
+      const waveEffect = 4;
+    }
+    wave8:{      fill screen without gaps (set colorFactor to 64)
+      const CellSize = 14;
+      const CellSpacingX = 9;
+      const CellSpacingY = 8;
+      const offSet = .5;
+      const waveEffect = 4;
+    }
+
+*/
+
 const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-
 const backgroundImage = new Image();
-backgroundImage.src = 'Images/RomanStatue.png';
-//backgroundImage.src = 'Images/colors.png';
+//backgroundImage.src = 'Images/RomanStatue.png'; 
+backgroundImage.src = 'Images/colors.png';
 const imageWidth = backgroundImage.width;
 const imageHeight = backgroundImage.height;
+backgroundImage.style.width = '200px';
+backgroundImage.style.height = 'auto';
+
+// Use the settings to change these for different effects, preset to wave1
+const CellSize = 14;
+const CellSpacingX = 9;
+const CellSpacingY = 8;
+const offSet = .5;
+const waveEffect = 4;
 
 var gameFrame = 0;
 let particleArray = [];
-
-//var myImageData = ctx.createImageData(width, height);
-//var myImageData = c.getImageData(left, top, width, height);
+let posotive = true;
+let aniX = -waveEffect;
+let ColorFactor = 4; // sets number of color possibilities accepted within error {1,2,4,8,16,32,64}
 
 //handle mouse
+let canvasPosition = canvas.getBoundingClientRect();
 const mouse = {
   y: null,
   x: null,
-  radius: 150
+  radius: 5
 }
-
 canvas.addEventListener("mousemove", function(event) { 
-  mouse.x = event.x;
-  mouse.y = event.y;
+  mouse.x = event.x - canvasPosition.left;
+  mouse.y = event.y - canvasPosition.top;
 });
+canvas.addEventListener('mousedown', function(event){
+  mouse.click = true;
+  mouse.x = event.x - canvasPosition.left;
+  mouse.y = event.y - canvasPosition.top;
+});
+canvas.addEventListener('mouseup', function(){
+  mouse.click = false;
+  dragging = false;
+})
 
 class Cell{
-  constructor(r, g, b, a, x, y){
+  constructor(r, g, b, a, x, y, dx, dy){
     this.red = r;
     this.blue = b;
     this.green = g;
     this.alpha = a;
-    this.x = x;
-    this.y = y;
-    this.size = 1;
-    this.baseY = this.y
-    this.baseX = this.x
-    this.density = ( Math.random() * 40 ) + 1;
+    this.x = x -100;
+    this.y = y - 200;
+    this.size = CellSize;
+    this.baseY = this.y;
+    this.baseX = this.x;
+    this.dx = dx;
+    this.dy = dy;
   }
-
   draw(){
-    //ctx.fillstyle = "rgba(" + this.red + ", " + this.green + ", " + this.blue + ", " + this.alpha + ")";
     ctx.fillStyle = `rgba(${this.red}, ${this.green}, ${this.blue}, ${this.alpha})`;
     ctx.beginPath();
-    //ctx.arc(this.x + (canvas.width/2 - imageWidth/2), this.y + (canvas.height/2 - imageHeight/2), this.size, 0, Math.PI*2);
     ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
-    
     ctx.closePath();
     ctx.fill();
   }
-  update(){
-    let p = 0;
+  update(aniX){
+    this.x += aniX;
+    this.y += aniX;
   }
 }
 
-function start(){
-  /*ctx.fillStyle = 'white';
-  ctx.font = '30px Verdana';
-  ctx.fillText('A',0,30);*/
-  createParticleArray();
-  animate();
-}
+/* gets Image data and creates array of particles with r,g,b,a,x,y values,
+     filtering pixels through the Floyd–Steinberg dithering algorithm */
 
-// get image data
-//display pixels as square objects in an array
-
-// gets Image data and creates array of particles with r,g,b,a,x,y values
 function createParticleArray(){
-    //particleArray = []
     ctx.drawImage(backgroundImage, 0, 0, imageWidth, imageHeight);
     const pixels = ctx.getImageData(0, 0, imageWidth, imageHeight);
-    //console.log(pixels);
     for(let y = 0; y < pixels.height-1; y++){
+      particleArrayRow = [];
       for (let x = 1; x <  pixels.width-1; x++){
         let currentRed = pixels.data[(y * 4 * pixels.width) + (x * 4)];
         let currentGreen = pixels.data[(y * 4 * pixels.width) + (x * 4 + 1)];
@@ -82,7 +148,7 @@ function createParticleArray(){
         let positionX = x * (imageWidth/pixels.width);
         let positionY = y * (imageHeight/pixels.height);
 
-        let factor = 4;
+        let factor = ColorFactor;
         let roundedRed = Math.round(factor * currentRed / 255) * (255 / factor);
         let roundedGreen = Math.round(factor * currentGreen / 255) * (255 / factor);
         let roundedBlue = Math.round(factor * currentBlue / 255) * (255 / factor);
@@ -134,28 +200,54 @@ function createParticleArray(){
         pixels.data[(y * 4 * pixels.width + 1) + (x * 4 + 5)] = gIV;
         pixels.data[(y * 4 * pixels.width + 1) + (x * 4 + 6)] = bIV;
 
-        let cellSpacing = 4;
-        particleArray.push(new Cell(roundedRed, roundedGreen, roundedBlue, currentAlpha, positionX * cellSpacing, positionY * cellSpacing));
+        let cellSpacingX = CellSpacingX;
+        let cellSpacingY = CellSpacingY;
+
+        particleArrayRow.push(new Cell(roundedRed, roundedGreen, roundedBlue, currentAlpha, positionX * cellSpacingX, positionY * cellSpacingY));
       }
+      particleArray.push(particleArrayRow);
     }
-   console.log(particleArray);
+}
+// sets each pixel of imageData to a greyscaled RGB value
+function greyscale(imgPixels) {
+  for(var y = 0; y < imgPixels.height; y++){
+    for(var x = 0; x < imgPixels.width; x++){
+        var i = (y * 4) * imgPixels.width + x * 4;
+        var avg = (imgPixels.data[i] + imgPixels.data[i + 1] + imgPixels.data[i + 2]) / 3;
+        imgPixels.data[i] = avg;
+        imgPixels.data[i + 1] = avg;
+        imgPixels.data[i + 2] = avg;
+    }
+  }
+  return imgPixels;
+}
+
+function start(){
+  createParticleArray();
+  animate();
 }
 
 function animate(){
     ctx.clearRect(0,0, canvas.width, canvas.height);
-    for(let i=0; i < particleArray.length; i++){
-      /* 
-      if(particleArray[i].alpha == 255){
-        particleArray[i].draw();
-      }*/
-      particleArray[i].draw();
-  
-      //particleArray[i].update();
+    for(let i=0; i < particleArray.length; i+=2){
+      for(let j=0; j < particleArray.length; j+=2){
+        if(aniX < waveEffect && posotive){
+          aniX += offSet;
+        } else if(aniX == waveEffect){
+            aniX -= offSet;
+            posotive = false;
+        } else if(aniX > -waveEffect && ! posotive){
+            aniX -= offSet;
+        } else if(aniX == -waveEffect && !posotive){
+            aniX+= offSet;
+            posotive = true;
+        }
+        particleArray[i][j].draw();
+        particleArray[i][j].update(aniX);
+      }
     }
-    //console.log(myImageData)
-    
     gameFrame++;
-    //requestAnimationFrame(animate);
+    requestAnimationFrame(animate);
 }
 
 window.addEventListener('load', event => {
