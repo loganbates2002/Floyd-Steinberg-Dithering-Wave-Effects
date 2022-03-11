@@ -10,7 +10,7 @@ To change the number of color possibilities accepted within error, ie. how many 
 You may need to refresh the page.
 
 ------------------------------------------
-**Dithering Example:
+**Dithering Example:**
 
 ![UnditheredRomanStatue](README_Images/UnditheredImageRomanStatue.png) 
 (Undithered Image)
@@ -27,13 +27,13 @@ You may need to refresh the page.
 
 
 ------------------------------------------
-**Color Factor Example:
+**Color Factor Example:**
 
 ![DitheredRomanStatueColorFactor1](README_Images/DitheredImageColorFactor1.png) 
 (Dithered Image with Color Factor of 1)
 
 ------------------------------------------
-**Wave Example:
+**Wave Example:**
 
 ![Wave1](README_Images/WaveWithBlackSpace.png) 
 (Wave1 preset with backgroundImage.src = 'Images/colors.png' )
