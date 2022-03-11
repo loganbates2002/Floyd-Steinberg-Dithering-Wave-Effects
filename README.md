@@ -13,15 +13,12 @@ You may need to refresh the page.
 **Dithering Example:**
 
 ![UnditheredRomanStatue](README_Images/UnditheredImageRomanStatue.png) 
-
 (Undithered Image)
 
-------->
 
 ![DitheredRomanStatueSquare](README_Images/DitheredImageSquarePixels.png) 
 (Dithered Image: Square Cells)
 
--------->
 
 ![DitheredRomanStatueCircle](README_Images/DitheredImageCirclePixels.png) 
 (Dithered Image: Circlular Cells)
