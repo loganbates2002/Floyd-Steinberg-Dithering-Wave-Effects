@@ -10,6 +10,7 @@ To change the number of color possibilities accepted within error, ie. how many 
 You may need to refresh the page.
 
 Dithering Example:
+![CHEESE](Floyd-SteinbergDitheringExampleImages/Screen Shot 2022-03-08 at 11.45.57 PM copy.png)
 
 Color Factor Example:
 
