@@ -13,33 +13,34 @@ You may need to refresh the page.
 **Dithering Example:**
 
 ![UnditheredRomanStatue](README_Images/UnditheredImageRomanStatue.png) 
+
 (Undithered Image)
 
 ------->
 
 ![DitheredRomanStatueSquare](README_Images/DitheredImageSquarePixels.png) 
-(Dithered Image with square cells)
+(Dithered Image: Square Cells)
 
 -------->
 
 ![DitheredRomanStatueCircle](README_Images/DitheredImageCirclePixels.png) 
-(Dithered Image with circlular cells)
+(Dithered Image: Circlular Cells)
 
 
 ------------------------------------------
 **Color Factor Example:**
 
 ![DitheredRomanStatueColorFactor1](README_Images/DitheredImageColorFactor1.png) 
-(Dithered Image with Color Factor of 1)
+(Dithered Image: Color Factor of 1)
 
 ------------------------------------------
 **Wave Example:**
 
 ![Wave1](README_Images/WaveWithBlackSpace.png) 
-(Wave1 preset with backgroundImage.src = 'Images/colors.png' )
+(Wave1 preset: backgroundImage.src = 'Images/colors.png' )
 
 ![Wave8CF4](README_Images/Wave8ColorFactor4.png) 
-(Wave8 preset with backgroundImage.src = 'Images/colors.png' and ColorFactor = 4)
+(Wave8 preset: backgroundImage.src = 'Images/colors.png', ColorFactor = 4)
 
 ![Wave8CF64](README_Images/Wave8ColorFactor64.png) 
-(Wave8 preset with backgroundImage.src = 'Images/colors.png' and ColorFactor = 64)
+(Wave8 preset: backgroundImage.src = 'Images/colors.png', ColorFactor = 64)
