@@ -1,4 +1,4 @@
-# Floyd-SteinbergDitheringSerenety
+# Floyd-Steinberg Dithering Wave Effects
 Floyd-Steinberg Dithering implementation with optional wave effects
 https://en.wikipedia.org/wiki/Floyd%E2%80%93Steinberg_dithering
 
