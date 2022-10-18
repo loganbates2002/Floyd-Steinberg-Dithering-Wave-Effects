@@ -43,6 +43,7 @@ You may need to refresh the page.
 (Wave8 preset: backgroundImage.src = 'Images/colors.png', ColorFactor = 64)
 
 For different wave speeds and oscillations, change these settings in index.js:
+
     wave1:{        normal grid
       const CellSize = 4;
       const CellSpacingX = 12;
@@ -50,6 +51,7 @@ For different wave speeds and oscillations, change these settings in index.js:
       const offSet = .25;
       const waveEffect = 6;
     }
+    
     wave2:{         virticle lines
       const CellSize = 8;
       const CellSpacingX = 50;
@@ -57,6 +59,7 @@ For different wave speeds and oscillations, change these settings in index.js:
       const offSet = .25;
       const waveEffect = 6;
     }
+    
     wave3:{         large cells, long oscillation
       const CellSize = 8;
       const CellSpacingX = 50;
@@ -64,6 +67,7 @@ For different wave speeds and oscillations, change these settings in index.js:
       const offSet = .5;
       const waveEffect = 12;
     }
+    
     wave4:{        large cells, slow oscillation
       const CellSize = 35;
       const CellSpacingX = 50;
@@ -71,6 +75,7 @@ For different wave speeds and oscillations, change these settings in index.js:
       const offSet = .5;
       const waveEffect = 6;
     }
+    
     wave5:{      small cells, long oscillation
       const CellSize = 2;
       const CellSpacingX = 50;
@@ -78,6 +83,7 @@ For different wave speeds and oscillations, change these settings in index.js:
       const offSet = 1;
       const waveEffect = 24;
     }
+    
     wave6:{       small cells, virticle lines
       const CellSize = 4;
       const CellSpacingX = 14;
@@ -85,6 +91,7 @@ For different wave speeds and oscillations, change these settings in index.js:
       const offSet = .25;
       const waveEffect = 6;
     }
+    
     wave7:{           offset wave
       const CellSize = 4;
       const CellSpacingX = 10;
@@ -92,6 +99,7 @@ For different wave speeds and oscillations, change these settings in index.js:
       const offSet = .25;
       const waveEffect = 4;
     }
+    
     wave8:{      fill screen without gaps (set ColorFactor to 64 on line 85)
       const CellSize = 14;
       const CellSpacingX = 9;
